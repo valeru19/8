@@ -1,0 +1,80 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class Matr {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter the quantity of the lines of the matrix N");
+        int N = in.nextInt();
+        System.out.println("Enter the number of matrix columns M");
+        int M = in.nextInt();
+        double[][] matr = new double[N][M];
+        Random ran = new Random();
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < M; ++j) {
+                matr[i][j] = ran.nextInt(50);
+            }
+        }
+        printMatr(matr);
+        System.out.println();
+        System.out.println("Select the line");
+        int N_1 = in.nextInt();
+        if (N_1 > N) {
+            System.out.println("You introduced the wrong line number");
+            System.out.println("Try again");
+            for (N_1 = in.nextInt(); N_1 > N; N_1 = in.nextInt()) {
+                System.out.println("Try again");
+            }
+        }
+        for (int i = 0; i < M; ++i) {
+            System.out.print(matr[N_1 - 1][i] + "\t");
+        }
+        int min = (int) matr[0][0];
+        int i_min = 0;
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < M; ++j) {
+                if ((double) min > matr[i][j]) {
+                    min = (int) matr[i][j];
+                    i_min = i;
+                }
+            }
+        }
+
+        System.out.println();
+        System.out.println("A string with a minimum element");
+        for (int i = 0; i < M; i++) {
+            System.out.printf("\t%.2f", matr[i_min][i]);
+        }
+        for (int i = 0; i < N; ++i) {
+            if (matr[N_1 - 1][i] == matr[i_min][i]) {
+                System.out.println();
+                System.out.println("You introduced the wrong line number");
+                while (matr[N_1 - 1][i] == matr[i_min][i]) {
+                    System.out.println("Try again");
+                    N_1 = in.nextInt();
+                }
+            }
+
+        }
+        for (int j = 0; j < M; j++) {
+            int t = (int) matr[N_1 - 1][j];
+            matr[N_1 - 1][j] =  matr[i_min][j];
+            matr[i_min][j] = t;
+
+        }System.out.println();
+        printMatr(matr);
+    }
+    public static double[][] printMatr(double[][] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                if (j != 0) {
+                    System.out.printf("\t%.2f", array[i][j]);
+                } else {
+                    System.out.printf("%.2f", array[i][j]);
+                }
+            }
+            System.out.println();
+        }
+        return array;
+    }
+}
