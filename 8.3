@@ -1,0 +1,47 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Ввод координат центра окружности и радиуса
+        System.out.print("Введите координату x центра окружности: ");
+        double xc = scanner.nextDouble();
+        System.out.print("Введите координату y центра окружности: ");
+        double yc = scanner.nextDouble();
+        System.out.print("Введите радиус окружности: ");
+        double R = scanner.nextDouble();
+
+        // Создание массива с координатами точек
+        System.out.print("Введите количество точек: ");
+        int N = scanner.nextInt();
+        List<Double> points = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            System.out.print("Введите координату x" + (i + 1) + ": ");
+            double x = scanner.nextDouble();
+            System.out.print("Введите координату y" + (i + 1) + ": ");
+            double y = scanner.nextDouble();
+            points.add(x);
+            points.add(y);
+        }
+
+        // Поиск точек вне окружности
+        List<Integer> pointsOutside = new ArrayList<>();
+        for (int i = 0; i < points.size(); i += 2) {
+            double xi = points.get(i);
+            double yi = points.get(i + 1);
+            double distance = Math.sqrt(Math.pow(xi - xc, 2) + Math.pow(yi - yc, 2));
+            if (distance > R) {
+                pointsOutside.add(i / 2 + 1);
+            }
+        }
+
+        // Вывод точек, которые лежат вне окружности
+        System.out.println("Точки, лежащие вне окружности:");
+        for (int point : pointsOutside) {
+            System.out.println("Точка " + point);
+        }
+    }
+}
