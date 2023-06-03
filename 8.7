@@ -1,0 +1,35 @@
+public class Main {
+    public static void main(String[] args) {
+        int n = 6;
+        double [][] A = new double[n][n];
+        int k = 0, sch = 1;
+        while (k <= Math.ceil(n/6)) {
+            for(int i = k; i <= n - 1 - 2*k; i++){
+                A[i][i+k] = sch++;
+            }
+            for(int j = n - 2; j >= 2*k; j--){
+                A[j - k][n - 1 - k] = sch++;
+            }
+            for(int j = n - 2; j >= n - 5 + 3*k; j--){
+                A[k][j - k] = sch++;
+            }
+            k++;
+        }
+        printMatr(A);
+    }
+    public static double[][] printMatr(double[][] array) {
+        for(int i = 0; i < array.length; i++) {
+            for(int j = 0; j < array[0].length; j++) {
+                if (j != 0) {
+                    System.out.printf("\t%.0f", array[i][j]);
+                } else {
+                    System.out.printf("%.0f", array[i][j]);
+                }
+            }
+
+            System.out.println();
+        }
+
+        return array;
+    }
+}
