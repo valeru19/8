@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class Main {
+    public Main() {
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter the number of matrix lines M");
+        int M = in.nextInt();
+        System.out.println("Enter the number of matrix columns N");
+        int N = in.nextInt();
+        double[][] matr = new double[M][N];
+        int D = 3;
+
+        for(int i = 0; i < M; ++i) {
+            for(int j = 0; j < N; ++j) {
+                for(int k = 0; k <= N; ++k) {
+                    if (j == 0) {
+                        matr[i][j] = (double)(M + D);
+                    }
+
+                    if (j == k - 1) {
+                        matr[i][j] = (double)(M + D * k);
+                    }
+                }
+            }
+        }
+
+        printMatr(matr);
+    }
+
+    public static double[][] printMatr(double[][] array) {
+        for(int i = 0; i < array.length; ++i) {
+            for(int j = 0; j < array[0].length; ++j) {
+                if (j != 0) {
+                    System.out.printf("\t%.0f", array[i][j]);
+                } else {
+                    System.out.printf("%.0f", array[i][j]);
+                }
+            }
+
+            System.out.println();
+        }
+
+        return array;
+    }
+
+    public static void printMas(double[] array) {
+        for(int i = 0; i <= array.length - 1; ++i) {
+            System.out.print(array[i] + "\t");
+        }
+
+    }
+}
