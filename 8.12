@@ -1,0 +1,108 @@
+import java.util.Scanner;
+
+public class InverseMatrix1 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите размерность матрицы: ");
+        int n = scanner.nextInt();
+        double[][] A = new double[n][n];
+        System.out.println("Введите элементы матрицы:");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.printf("A[%d][%d] = ", i, j);
+                A[i][j] = scanner.nextDouble();
+            }
+        }
+        double[][] inverse = inverseMatrix(A);
+        System.out.println("Обратная матрица:");
+        printMatrix(inverse);
+        scanner.close();
+    }
+    public static double[][] inverseMatrix(double[][] A) {
+        int n = A.length;
+        double det = determinant(A);
+        if (det == 0) {
+            System.out.println("Матрица не имеет обратной.");
+            return null;
+        }
+        double[][] adj = new double[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                adj[i][j] = Math.pow(-1, i + j) * determinant(minor(A, i, j));
+            }
+        }
+        adj = transpose(adj);
+        adj = scalarMultiply(1 / det, adj);
+        return adj;
+    }
+
+    public static double determinant(double[][] A) {
+        int n = A.length;
+
+        if (n == 1) {
+            return A[0][0];
+        }
+        if (n == 2) {
+            return A[0][0] * A[1][1] - A[0][1] * A[1][0];
+        }
+        double det = 0;
+        for (int j = 0; j < n; j++) {
+            det += A[0][j] * Math.pow(-1, 0 + j) * determinant(minor(A, 0, j));
+        }
+        return det;
+    }
+    public static double[][] minor(double[][] A, int i, int j) {
+        int n = A.length;
+        double[][] M = new double[n - 1][n - 1];
+        int r = 0;
+        int c = 0;
+        for (int k = 0; k < n; k++) {
+            if (k != i) {
+                c = 0;
+                for (int l = 0; l < n; l++) {
+                    if (l != j) {
+                        M[r][c] = A[k][l];
+                        c++;
+                    }
+                }
+                r++;
+            }
+        }
+        return M;
+    }
+    public static double[][] transpose(double[][] A) {
+        int n = A.length;
+        int m = A[0].length;
+
+        double[][] B = new double[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                B[i][j] = A[j][i];
+            }
+        }
+        return B;
+    }
+    public static double[][] scalarMultiply(double c, double[][] A) {
+        int n = A.length;
+        int m = A[0].length;
+        double[][] B = new double[n][m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                B[i][j] = c * A[i][j];
+            }
+        }
+        return B;
+    }
+    public static void printMatrix(double[][] A) {
+        int n = A.length;
+        int m = A[0].length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                System.out.printf("%.2f ", A[i][j]);
+            }
+            System.out.println();
+        }
+    }
+}
