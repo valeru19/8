@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter a number of points");
+        int a = in.nextInt();
+        int b = 2;
+        double A[][] = new double[b][a];
+        int sch = 1, k = 0;
+        System.out.println("Enter the coordinates of points through the enter by pairs");
+        while (k <= a - 1) {
+            for (int i = 0; i <= a - 1; i++) {
+                System.out.print("x" + sch + " = ");
+                A[0][i] = in.nextDouble();
+                System.out.print("y" + sch + " = ");
+                A[1][i] = in.nextDouble();
+                System.out.println();
+                if(Surface(A[0][i],A[1][i])){
+                    System.out.println("0");
+                } else if (Inside(A[0][i],A[1][i])) {
+                    System.out.println("1");
+                }else
+                    System.out.println("-1");
+                sch++;
+                k++;
+            }
+        }
+        System.out.println();
+        printMatr(A);
+    }
+    public static boolean Surface(double x, double y){
+        return (x == 0.0 && x * x + y * y == 36.0) &&
+               Math.pow(x + 2.0, 2.0) + Math.pow(y - 3.0, 2.0) == 4.0 || Math.pow(x + 3.0, 2.0) + Math.pow(y - 3.0, 2.0) == 1.0 &&
+               Math.pow(x + 3.0, 2.0) + Math.pow(y + 2.0, 2.0) == 1.0 || Math.pow(x + 1.0, 2.0) + Math.pow(y + 2.0, 2.0) == 1.0 ||
+               (y == 0.2 * x + 1.0) || (x == -5.0) || (y == -0.4 * x - 5.0);
+    }
+    public static boolean Inside(double x, double y) {
+        return (x < 0.0 && x * x + y * y < 36.0) &&
+                Math.pow(x + 2.0, 2.0) + Math.pow(y - 3.0, 2.0) > 4.0 || Math.pow(x + 3.0, 2.0) + Math.pow(y - 3.0, 2.0) < 1.0 &&
+                Math.pow(x + 3.0, 2.0) + Math.pow(y + 2.0, 2.0) < 1.0 || Math.pow(x + 1.0, 2.0) + Math.pow(y + 2.0, 2.0) < 1.0 ||
+                !(y < 0.2 * x + 1.0) || !(x > -5.0) || !(y > -0.4 * x - 5.0);
+    }
+    public static double[][] printMatr(double[][] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                if (j != 0) {
+                    System.out.printf("\t%.2f", array[i][j]);
+                } else {
+                    System.out.printf("%.2f", array[i][j]);
+                }
+            }
+            System.out.println();
+        }
+        return array;
