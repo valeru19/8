@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class Main {
+    static Scanner in = new Scanner(System.in);
+    public static void main(String[] args) {
+
+        System.out.println("Введите количество целых чисе M");
+        int N = in.nextInt();
+        int M[] = new int[N];
+        System.out.println("Этот набор должен начинаться с 0");
+        for(int i = 0; i < N; i++){
+            System.out.print("M["+i+"] = ");
+            M[i] = in.nextInt();
+            if(M[0] != 0) {
+                System.out.println("Вы ввели первый элемент не равный 0");
+                while (M[0] != 0) {
+                    System.out.println("Повторите попытку, M[0] должно быть равно 0");
+                    System.out.print("M["+i+"] = ");
+                    M[i] = in.nextInt();
+                }
+            } else if (M[N-1] != 0) {
+                System.out.println("Последний элемент M["+(N-1)+"] должен равняться 0");
+                while(M[N-1] != 0){
+                    System.out.println("Повторите попытку, M["+(N-1)+"] должен быть равен 0");
+                    System.out.print("M["+i+"] = ");
+                    M[i] = in.nextInt();
+                }
+            }
+            
+        }int sum = 0;
+         for (int i = 1; i <= (N-2); i++){
+             sum += M[i];
+            
+        }System.out.println("Сумма чисел между нулями равна "+sum);
+        printNas(M);
+    }
+    private static void printNas(int[] array) {
+        for(int i=0; i <= array.length-1; i++){
+            System.out.print(array[i]+"\t");
+        }
+    }
+}
