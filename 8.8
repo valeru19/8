@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter the size of the matrix n");
+        int n = in.nextInt();
+        double A[][] = new double[n][n];
+        A = Filling(A, 0,0);
+        A = Filling(A, n/2,0);
+        A = Filling(A, 0,n/2);
+        A = Filling(A, n/2,n/2);
+        printMatr(A);
+    }
+    public static double[][] Filling(double[][] array, int z, int g) {
+        int k = 0, shc = 1;
+        while(k <= Math.ceil(array.length/6)){
+            for (int i = k; i <= array.length/2 - 1 - k*2; i++){
+                array[i+k+z][i+g] = shc++;
+            }
+            for(int i = array.length/2 - 1 - k; i >= 1+k*2 ; i--){
+                array[array.length/2 - 1 - k+z][i-1 - k+g] = shc++;
+            }
+            for(int j = array.length/2 - 2; j >= 1 + (k*3); j--){
+                array[j-k+z][array.length/2 - array.length/2 + k+g] = shc++;
+            }
+            k++;
+        }
+        return array;
+    }
+    public static double[][] printMatr(double[][] array) {
+        for(int i = 0; i < array.length; i++) {
+            for(int j = 0; j < array[0].length; j++) {
+                if (j != 0) {
+                    System.out.printf("\t%.0f", array[i][j]);
+                } else {
+                    System.out.printf("%.0f", array[i][j]);
+                }
+            }
+
+            System.out.println();
+        }
+
+        return array;
+    }
+}
